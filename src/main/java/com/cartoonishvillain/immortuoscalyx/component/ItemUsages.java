@@ -1,10 +1,12 @@
 package com.cartoonishvillain.immortuoscalyx.component;
 
 import com.cartoonishvillain.immortuoscalyx.damage.InternalOrganDamage;
+import com.cartoonishvillain.immortuoscalyx.entities.InfectedEntity;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
@@ -35,7 +37,28 @@ public class ItemUsages {
         if (user instanceof Player) {
             if (target.equals(user)) {
                 selfScan((Player) user);
-            }
+            } else scan((Player) user, target);
+        }
+    }
+
+    private static void scan(Player a, LivingEntity t){
+        if(t instanceof Player){
+        InfectionComponent h = INFECTION.get(t);
+            a.sendMessage(new TextComponent("===(" + t.getScoreboardName() + "'s stats)==="), a.getUUID());
+            a.sendMessage(new TextComponent("Health: " + t.getHealth()), a.getUUID());
+            a.sendMessage(new TextComponent("Food: " + ((Player) t).getFoodData().getFoodLevel()), a.getUUID());
+            a.sendMessage(new TextComponent("Infection Level: " + h.getInfectionProgress() + "%"), a.getUUID());
+            a.sendMessage(new TextComponent("Resistance Multiplier: " + h.getResistance()), a.getUUID());
+        } else if(t instanceof InfectedEntity){
+            a.sendMessage(new TextComponent("===(Target completely infected)==="), a.getUUID());
+        } else {
+            InfectionComponent h = INFECTION.get(t);
+                a.sendMessage(new TextComponent("===(" + t.getName().getString() + "'s stats)==="), a.getUUID());
+                a.sendMessage(new TextComponent("Health: " + t.getHealth()), a.getUUID());
+                a.sendMessage(new TextComponent("Infection Rate: " + h.getInfectionProgress() + "%"), a.getUUID());
+                if(a.isCreative() && t instanceof Villager){
+                    a.sendMessage(new TextComponent("Immortuos Follower: " + h.isFollower()), a.getUUID());
+                }
         }
     }
 
