@@ -1,6 +1,8 @@
 package com.cartoonishvillain.immortuoscalyx.mixin;
 
 import com.cartoonishvillain.immortuoscalyx.Register;
+import com.cartoonishvillain.immortuoscalyx.component.InfectionComponent;
+import com.cartoonishvillain.immortuoscalyx.entities.InfectedEntity;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -15,6 +17,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import static com.cartoonishvillain.immortuoscalyx.Register.EXTRACT;
 import static com.cartoonishvillain.immortuoscalyx.Register.SYRINGE;
+import static com.cartoonishvillain.immortuoscalyx.component.ComponentStarter.INFECTION;
 
 @Mixin(Player.class)
 public abstract class syringeUsageMixin {
@@ -29,6 +32,12 @@ public abstract class syringeUsageMixin {
                 extract = true;
                 player.getMainHandItem().shrink(1);
                 ItemStack itemStack = new ItemStack(Register.GENERALANTIPARASITIC);
+                player.getInventory().add(itemStack);
+            }
+            if(entity instanceof InfectedEntity || INFECTION.get(entity).getInfectionProgress() > 50){
+                extract = true;
+                player.getMainHandItem().shrink(1);
+                ItemStack itemStack = new ItemStack(Register.IMMORTUOSCALYXEGGS);
                 player.getInventory().add(itemStack);
             }
 

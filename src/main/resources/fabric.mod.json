@@ -3,6 +3,12 @@
   "id": "immortuoscalyx",
   "version": "${version}",
 
+  "custom": {
+    "cardinal-components": [
+      "immortuoscalyx:infection"
+    ]
+  },
+
   "name": "Immortuos Calyx",
   "description": "A new parasitic infection has spread across the world. Try not to get infected... Inspired by the Velonaceps Calyx from Barotrauma.",
   "authors": [
@@ -20,6 +26,12 @@
   "entrypoints": {
     "main": [
       "com.cartoonishvillain.immortuoscalyx.ImmortuosCalyx"
+    ],
+    "client":[
+      "com.cartoonishvillain.immortuoscalyx.client.ClientImmortuosInitalizer"
+    ],
+    "cardinal-components-entity": [
+      "com.cartoonishvillain.immortuoscalyx.component.ComponentStarter"
     ]
   },
   "mixins": [
