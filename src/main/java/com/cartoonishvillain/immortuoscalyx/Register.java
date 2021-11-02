@@ -13,6 +13,7 @@ import static com.cartoonishvillain.immortuoscalyx.ImmortuosCalyx.MOD_ID;
 public class Register {
 
     public static final Item SYRINGE = new BaseItems(new Item.Properties().tab(CreativeModeTab.TAB_BREWING), ChatFormatting.GRAY + "Allows you to harvest biomaterials necessary to make medicines", "", "", "");
+    public static final Item GENERALANTIPARASITIC = new BaseItems(new Item.Properties().tab(CreativeModeTab.TAB_BREWING), ChatFormatting.BLUE + "Strengthens Immune System to the Immortuos Calyx Parasite", ChatFormatting.BLUE + "Does not make you immune. May also kill early forms of infection", ChatFormatting.RED + "Will cause light organ damage", ChatFormatting.GRAY + "Obtained through syringe extraction from a slime");
 
     public static final ResourceLocation human_ambient_id = new ResourceLocation(MOD_ID, "infected_idle");
     public static final ResourceLocation human_hurt_id = new ResourceLocation(MOD_ID, "infected_hurt");
@@ -38,6 +39,7 @@ public class Register {
 
     public static void init(){
         Registry.register(Registry.ITEM, new ResourceLocation(MOD_ID, "syringe"), SYRINGE);
+        Registry.register(Registry.ITEM, new ResourceLocation(MOD_ID, "antiparasitic"), GENERALANTIPARASITIC);
 
         Registry.register(Registry.SOUND_EVENT, human_ambient_id, HUMANAMBIENT);
         Registry.register(Registry.SOUND_EVENT, human_hurt_id, HUMANHURT);
