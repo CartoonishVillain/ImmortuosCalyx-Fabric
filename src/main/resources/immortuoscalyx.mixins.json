@@ -4,6 +4,7 @@
   "package": "com.cartoonishvillain.immortuoscalyx.mixin",
   "compatibilityLevel": "JAVA_16",
   "mixins": [
+    "syringeUsageMixin"
   ],
   "client": [
   ],

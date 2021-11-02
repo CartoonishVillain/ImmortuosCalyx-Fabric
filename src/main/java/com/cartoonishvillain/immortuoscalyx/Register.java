@@ -1,12 +1,18 @@
 package com.cartoonishvillain.immortuoscalyx;
 
+import com.cartoonishvillain.immortuoscalyx.Items.BaseItems;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
 
 import static com.cartoonishvillain.immortuoscalyx.ImmortuosCalyx.MOD_ID;
 
 public class Register {
+
+    public static final Item SYRINGE = new BaseItems(new Item.Properties().tab(CreativeModeTab.TAB_BREWING), ChatFormatting.GRAY + "Allows you to harvest biomaterials necessary to make medicines", "", "", "");
 
     public static final ResourceLocation human_ambient_id = new ResourceLocation(MOD_ID, "infected_idle");
     public static final ResourceLocation human_hurt_id = new ResourceLocation(MOD_ID, "infected_hurt");
@@ -31,6 +37,8 @@ public class Register {
     public static SoundEvent VILDEATH = new SoundEvent(vil_death_id);
 
     public static void init(){
+        Registry.register(Registry.ITEM, new ResourceLocation(MOD_ID, "syringe"), SYRINGE);
+
         Registry.register(Registry.SOUND_EVENT, human_ambient_id, HUMANAMBIENT);
         Registry.register(Registry.SOUND_EVENT, human_hurt_id, HUMANHURT);
         Registry.register(Registry.SOUND_EVENT, human_death_id, HUMANDEATH);

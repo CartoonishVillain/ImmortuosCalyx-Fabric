@@ -22,5 +22,7 @@ public class ImmortuosCalyx implements ModInitializer {
 		// However, some things (like resources) may still be uninitialized.
 		// Proceed with mild caution.
 
+		Register.init();
+
 	}
 }
