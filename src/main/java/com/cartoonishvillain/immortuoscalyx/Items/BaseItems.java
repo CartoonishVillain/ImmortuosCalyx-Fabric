@@ -1,5 +1,6 @@
 package com.cartoonishvillain.immortuoscalyx.Items;
 
+import com.cartoonishvillain.immortuoscalyx.component.ItemUsages;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.InteractionHand;
@@ -20,19 +21,31 @@ public class BaseItems extends Item{
     String lore2;
     String lore3;
     String lore4;
-    public BaseItems(Properties properties, String lore1, String lore2, String lore3, String lore4) {
+    ItemFunctionality itemFunctionality;
+    public BaseItems(Properties properties, String lore1, String lore2, String lore3, String lore4, ItemFunctionality itemFunctionality) {
         super(properties);
         this.lore1 = lore1;
         this.lore2 = lore2;
         this.lore3 = lore3;
         this.lore4 = lore4;
+        this.itemFunctionality = itemFunctionality;
 
     }
 
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
-//        if()
+        if(player.isCrouching() && !itemFunctionality.equals(ItemFunctionality.NONE) && interactionHand.equals(InteractionHand.MAIN_HAND) && !level.isClientSide && player.getMainHandItem().getItem() instanceof BaseItems){
+            if(((BaseItems) player.getMainHandItem().getItem()).getItemFunctionality().equals(ItemFunctionality.ANTIBIOTIC)){
+                ItemUsages.useAntiParasitic(player.getMainHandItem(), player);
+            } else if(((BaseItems) player.getMainHandItem().getItem()).getItemFunctionality().equals(ItemFunctionality.CALYXIDE)){
+                ItemUsages.useCalyxide(player.getMainHandItem(), player);
+            } else if(((BaseItems) player.getMainHandItem().getItem()).getItemFunctionality().equals(ItemFunctionality.EGGS)){
+                ItemUsages.useImmortuosCalyxEggs(player.getMainHandItem(), player);
+            } else if(((BaseItems) player.getMainHandItem().getItem()).getItemFunctionality().equals(ItemFunctionality.SCANNER)){
+                ItemUsages.useScanner(player, player);
+            }
+        }
         return super.use(level, player, interactionHand);
     }
 
@@ -50,5 +63,9 @@ public class BaseItems extends Item{
                 }
             }
         }
+    }
+
+    public ItemFunctionality getItemFunctionality(){
+        return itemFunctionality;
     }
 }

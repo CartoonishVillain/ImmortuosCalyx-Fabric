@@ -20,7 +20,7 @@ import static com.cartoonishvillain.immortuoscalyx.Register.SYRINGE;
 import static com.cartoonishvillain.immortuoscalyx.component.ComponentStarter.INFECTION;
 
 @Mixin(Player.class)
-public abstract class syringeUsageMixin {
+public abstract class SyringeUsageMixin {
 
 
     @Inject(at = @At("TAIL"), method = "interactOn")
@@ -40,8 +40,6 @@ public abstract class syringeUsageMixin {
                 ItemStack itemStack = new ItemStack(Register.IMMORTUOSCALYXEGGS);
                 player.getInventory().add(itemStack);
             }
-
-
 
             if (extract) player.level.playSound(null, player.getX(), player.getY(), player.getZ(), EXTRACT, SoundSource.PLAYERS, 1, 1);
         }

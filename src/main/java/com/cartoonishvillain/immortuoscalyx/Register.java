@@ -1,6 +1,7 @@
 package com.cartoonishvillain.immortuoscalyx;
 
 import com.cartoonishvillain.immortuoscalyx.Items.BaseItems;
+import com.cartoonishvillain.immortuoscalyx.Items.ItemFunctionality;
 import com.cartoonishvillain.immortuoscalyx.entities.*;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
@@ -18,9 +19,11 @@ import static com.cartoonishvillain.immortuoscalyx.ImmortuosCalyx.MOD_ID;
 
 public class Register {
 
-    public static final Item SYRINGE = new BaseItems(new Item.Properties().tab(CreativeModeTab.TAB_BREWING), ChatFormatting.GRAY + "Allows you to harvest biomaterials necessary to make medicines", "", "", "");
-    public static final Item GENERALANTIPARASITIC = new BaseItems(new Item.Properties().tab(CreativeModeTab.TAB_BREWING), ChatFormatting.BLUE + "Strengthens Immune System to the Immortuos Calyx Parasite", ChatFormatting.BLUE + "Does not make you immune. May also kill early forms of infection", ChatFormatting.RED + "Will cause light organ damage", ChatFormatting.GRAY + "Obtained through syringe extraction from a slime");
-    public static final Item IMMORTUOSCALYXEGGS = new BaseItems(new Item.Properties().tab(CreativeModeTab.TAB_BREWING), ChatFormatting.RED + "Infects humans with the Immortuos Calyx Parasite,", ChatFormatting.GRAY + "Obtained through syringe extraction from fully converted entities", "", "");
+    public static final Item SYRINGE = new BaseItems(new Item.Properties().tab(CreativeModeTab.TAB_BREWING), ChatFormatting.GRAY + "Allows you to harvest biomaterials necessary to make medicines", "", "", "", ItemFunctionality.NONE);
+    public static final Item GENERALANTIPARASITIC = new BaseItems(new Item.Properties().tab(CreativeModeTab.TAB_BREWING), ChatFormatting.BLUE + "Strengthens Immune System to the Immortuos Calyx Parasite", ChatFormatting.BLUE + "Does not make you immune. May also kill early forms of infection", ChatFormatting.RED + "Will cause light organ damage", ChatFormatting.GRAY + "Obtained through syringe extraction from a slime", ItemFunctionality.ANTIBIOTIC);
+    public static final Item IMMORTUOSCALYXEGGS = new BaseItems(new Item.Properties().tab(CreativeModeTab.TAB_BREWING), ChatFormatting.RED + "Infects humans with the Immortuos Calyx Parasite,", ChatFormatting.GRAY + "Obtained through syringe extraction from fully converted entities", "", "", ItemFunctionality.EGGS);
+    public static final Item CALYXANIDE = new BaseItems(new Item.Properties().tab(CreativeModeTab.TAB_BREWING),ChatFormatting.BLUE + "Kills the Immortuos Calyx Parasite", ChatFormatting.BLUE + "May need multiple doses for later stage infections", ChatFormatting.RED + "May be lethal if the parasite is ingrained too heavily", "", ItemFunctionality.CALYXIDE);
+    public static final Item SCANNER = new BaseItems(new Item.Properties().tab(CreativeModeTab.TAB_BREWING).stacksTo(1), ChatFormatting.BLUE + "Gives you information about infection", ChatFormatting.BLUE + "levels in players, and yourself.",ChatFormatting.GRAY + "Shift right click to view your stats,", ChatFormatting.GRAY + "left click entities to view theirs.", ItemFunctionality.SCANNER);
 
 
     public static final EntityType<InfectedPlayerEntity>  INFECTEDPLAYER = Registry.register(Registry.ENTITY_TYPE, new ResourceLocation(MOD_ID, "infectedplayer"), FabricEntityTypeBuilder.create(MobCategory.MONSTER, InfectedPlayerEntity::new).dimensions(EntityDimensions.fixed(0.6f, 1.95f)).build());
@@ -56,6 +59,8 @@ public class Register {
         Registry.register(Registry.ITEM, new ResourceLocation(MOD_ID, "syringe"), SYRINGE);
         Registry.register(Registry.ITEM, new ResourceLocation(MOD_ID, "antiparasitic"), GENERALANTIPARASITIC);
         Registry.register(Registry.ITEM, new ResourceLocation(MOD_ID, "immortuoseggs"), IMMORTUOSCALYXEGGS);
+        Registry.register(Registry.ITEM, new ResourceLocation(MOD_ID, "calyxanide"), CALYXANIDE);
+        Registry.register(Registry.ITEM, new ResourceLocation(MOD_ID, "healthscanner"), SCANNER);
 
         Registry.register(Registry.SOUND_EVENT, human_ambient_id, HUMANAMBIENT);
         Registry.register(Registry.SOUND_EVENT, human_hurt_id, HUMANHURT);

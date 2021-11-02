@@ -4,5 +4,6 @@ public enum ItemFunctionality {
     CALYXIDE,
     ANTIBIOTIC,
     EGGS,
-    SCANNER
+    SCANNER,
+    NONE
 }
