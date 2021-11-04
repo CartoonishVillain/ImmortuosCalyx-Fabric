@@ -5,6 +5,7 @@ import com.cartoonishvillain.immortuoscalyx.Items.ItemFunctionality;
 import com.cartoonishvillain.immortuoscalyx.Register;
 import com.cartoonishvillain.immortuoscalyx.component.ItemUsages;
 import com.cartoonishvillain.immortuoscalyx.entities.InfectedEntity;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;

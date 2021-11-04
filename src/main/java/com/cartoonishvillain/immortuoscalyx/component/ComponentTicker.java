@@ -1,16 +1,25 @@
 package com.cartoonishvillain.immortuoscalyx.component;
 
 import com.cartoonishvillain.immortuoscalyx.ImmortuosCalyx;
+import com.cartoonishvillain.immortuoscalyx.Register;
 import com.cartoonishvillain.immortuoscalyx.damage.InfectionDamage;
+import com.cartoonishvillain.immortuoscalyx.entities.InfectedPlayerEntity;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.TextComponent;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.animal.IronGolem;
+import net.minecraft.world.entity.npc.AbstractVillager;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
 
 import java.util.Random;
 
@@ -165,5 +174,22 @@ public class ComponentTicker {
         else if(progressionLogic == ImmortuosCalyx.config.playerSymptomProgression.EFFECTDAMAGE){
             if(ImmortuosCalyx.config.otherDetails.INFECTIONDAMAGE > 0)
                 afflictedPlayer.sendMessage(new TextComponent(ChatFormatting.RED + "You feel an overwhelming pain in your head..."), afflictedPlayer.getUUID());}
+    }
+
+    public static void infectedEntityConverter(DamageSource damageSource, LivingEntity entity){
+        if (damageSource.msgId.equals("infection")){
+            Level world = entity.level;
+            if(!world.isClientSide()){
+                ServerLevel serverWorld = (ServerLevel) world;
+                if(entity instanceof Player){
+                    InfectedPlayerEntity infectedPlayerEntity = new InfectedPlayerEntity(Register.INFECTEDPLAYER, world);
+                    infectedPlayerEntity.setCustomName(entity.getName());
+                    infectedPlayerEntity.setPUUID(entity.getUUID());
+                    infectedPlayerEntity.setPos(entity.getX(), entity.getY() + 0.1, entity.getZ());
+                    world.addFreshEntity(infectedPlayerEntity);}
+                else if(entity instanceof AbstractVillager){Register.INFECTEDVILLAGER.spawn(serverWorld, new ItemStack(Items.AIR), null, entity.blockPosition(), MobSpawnType.TRIGGERED, true, false); }
+                else if(entity instanceof IronGolem){Register.INFECTEDIG.spawn(serverWorld, new ItemStack(Items.AIR), null, entity.blockPosition(), MobSpawnType.TRIGGERED, true, false);}
+            }
+        }
     }
 }
