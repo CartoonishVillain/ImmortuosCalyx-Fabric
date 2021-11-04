@@ -24,7 +24,7 @@ import static com.cartoonishvillain.immortuoscalyx.Register.SYRINGE;
 import static com.cartoonishvillain.immortuoscalyx.component.ComponentStarter.INFECTION;
 
 @Mixin(Player.class)
-public abstract class OtherItemUsageMixin {
+public class OtherItemUsageMixin {
 
 
     @Inject(at = @At("HEAD"), method = "attack", cancellable = true)

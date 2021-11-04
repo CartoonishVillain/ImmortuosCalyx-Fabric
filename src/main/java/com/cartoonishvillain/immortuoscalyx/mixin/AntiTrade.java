@@ -1,5 +1,6 @@
 package com.cartoonishvillain.immortuoscalyx.mixin;
 
+import com.cartoonishvillain.immortuoscalyx.ImmortuosCalyx;
 import com.cartoonishvillain.immortuoscalyx.Register;
 import com.cartoonishvillain.immortuoscalyx.component.InfectionComponent;
 import com.cartoonishvillain.immortuoscalyx.entities.InfectedEntity;
@@ -8,6 +9,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.monster.Slime;
+import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
@@ -20,29 +22,24 @@ import static com.cartoonishvillain.immortuoscalyx.Register.SYRINGE;
 import static com.cartoonishvillain.immortuoscalyx.component.ComponentStarter.INFECTION;
 
 @Mixin(Player.class)
-public class SyringeUsageMixin {
+public class AntiTrade {
 
 
-    @Inject(at = @At("TAIL"), method = "interactOn")
+    @Inject(at = @At("HEAD"), method = "interactOn", cancellable = true)
     private void interactOn(Entity entity, InteractionHand interactionHand, CallbackInfoReturnable<InteractionResult> cir){
-        Player player = (Player) (Object) this;
-        if(!entity.level.isClientSide() && player.getMainHandItem().getItem().equals(SYRINGE) && interactionHand.equals(InteractionHand.MAIN_HAND)){
-            boolean extract = false;
-            if(entity instanceof Slime){
-                extract = true;
-                player.getMainHandItem().shrink(1);
-                ItemStack itemStack = new ItemStack(Register.GENERALANTIPARASITIC);
-                player.getInventory().add(itemStack);
+        if(!entity.level.isClientSide()){
+            if(entity instanceof Villager villager){
+                InfectionComponent h = INFECTION.get(villager);
+                boolean noTrade = false;
+                if(h.isFollower() && h.getInfectionProgress() >= ImmortuosCalyx.config.entityToggles.VILLAGERFOLLOWERIMMUNITY * ImmortuosCalyx.config.entityToggles.VILLAGERNOTRADE) noTrade = true;
+                else if(!h.isFollower() && h.getInfectionProgress() >= ImmortuosCalyx.config.entityToggles.VILLAGERNOTRADE) noTrade = true;
+                if(noTrade) {
+                    villager.setUnhappyCounter(40);
+                    villager.getCommandSenderWorld().playSound(null, villager.getX(), villager.getY(), villager.getZ(), Register.VILIDLE, SoundSource.NEUTRAL, 1f, 1f);
+                    cir.cancel();
+                }
             }
-            if(entity instanceof InfectedEntity || INFECTION.get(entity).getInfectionProgress() > 50){
-                extract = true;
-                player.getMainHandItem().shrink(1);
-                ItemStack itemStack = new ItemStack(Register.IMMORTUOSCALYXEGGS);
-                player.getInventory().add(itemStack);
-            }
-
-            if (extract) player.level.playSound(null, player.getX(), player.getY(), player.getZ(), EXTRACT, SoundSource.PLAYERS, 1, 1);
         }
     }
-
 }
+

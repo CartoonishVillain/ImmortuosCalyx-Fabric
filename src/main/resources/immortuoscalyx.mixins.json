@@ -4,10 +4,12 @@
   "package": "com.cartoonishvillain.immortuoscalyx.mixin",
   "compatibilityLevel": "JAVA_16",
   "mixins": [
-    "SyringeUsageMixin",
-    "OtherItemUsageMixin",
+    "AntiTrade",
     "DamageSourceInvoker",
-    "MobAccessor"
+    "LivingEntityTickMixin",
+    "MobAccessor",
+    "OtherItemUsageMixin",
+    "SyringeUsageMixin"
   ],
   "client": [
   ],
