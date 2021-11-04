@@ -15,7 +15,7 @@ public class ComponentStarter implements EntityComponentInitializer {
 
     @Override
     public void registerEntityComponentFactories(EntityComponentFactoryRegistry registry) {
-        registry.registerForPlayers(INFECTION, player -> new InfectionComponent(), RespawnCopyStrategy.LOSSLESS_ONLY);
-        registry.registerFor(LivingEntity.class, INFECTION, entity -> new InfectionComponent());
+        registry.registerForPlayers(INFECTION, InfectionComponent::new, RespawnCopyStrategy.LOSSLESS_ONLY);
+        registry.registerFor(LivingEntity.class, INFECTION, InfectionComponent::new);
     }
 }

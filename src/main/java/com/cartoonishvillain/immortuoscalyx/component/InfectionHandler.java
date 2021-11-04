@@ -5,10 +5,13 @@ import com.cartoonishvillain.immortuoscalyx.Register;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import static com.cartoonishvillain.immortuoscalyx.ImmortuosCalyx.rawItem;
 import static com.cartoonishvillain.immortuoscalyx.component.ComponentStarter.INFECTION;
 
 public class InfectionHandler {
@@ -85,6 +88,13 @@ public class InfectionHandler {
     public static void staticInfect(LivingEntity entity, int amount){
         InfectionComponent h = INFECTION.get(entity);
             h.setInfectionProgressIfLower(amount);
+    }
+
+
+    public static void bioInfectCheck(ItemStack itemStack, Level level, LivingEntity livingEntity){
+        if(!level.isClientSide && livingEntity instanceof Player && itemStack.isEdible() && rawItem.contains(itemStack.getItem()) && (!ImmortuosCalyx.DimensionExclusion.contains(livingEntity.level.dimension().location()) || !ImmortuosCalyx.config.dimensionsAndSpawnDetails.RAWFOODINFECTIONINCLEANSE)){
+            InfectionHandler.bioInfect(livingEntity, ImmortuosCalyx.config.contagionConfig.RAWFOODINFECTIONVALUE, 1);
+        }
     }
 
     //Non-Attack Vector infection. Armor ignored.

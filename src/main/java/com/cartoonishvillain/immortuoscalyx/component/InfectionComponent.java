@@ -1,29 +1,38 @@
 package com.cartoonishvillain.immortuoscalyx.component;
 
 import dev.onyxstudios.cca.api.v3.component.ComponentV3;
+import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.server.level.ServerPlayer;
 
-public class InfectionComponent implements ComponentV3 {
+public class InfectionComponent implements ComponentV3, AutoSyncedComponent {
 
+    private final Object provider;
     protected int infectionProgress = 0;
     protected int infectionTimer = 0;
     protected double resistance = 1;
     protected boolean follower = false;
 
+    public InfectionComponent(Object provider){
+        this.provider = provider;
+    }
+
 
     public int getInfectionProgress() { return this.infectionProgress; } //grabs the infection %
 
-    public void setInfectionProgress(int infectionProgress) { this.infectionProgress = infectionProgress; } //sets infection %. Maybe for a command later or something.
+    public void setInfectionProgress(int infectionProgress) { this.infectionProgress = infectionProgress; ComponentStarter.INFECTION.sync(this.provider); } //sets infection %. Maybe for a command later or something.
 
 
     public void setInfectionProgressIfLower(int infectionProgress) {
         if(this.infectionProgress < infectionProgress){
             this.infectionProgress = infectionProgress;
+            ComponentStarter.INFECTION.sync(this.provider);
         }
     }
 
 
-    public void addInfectionProgress(int infectionProgress) { this.infectionProgress += infectionProgress; } //ticks infection % up
+    public void addInfectionProgress(int infectionProgress) { this.infectionProgress += infectionProgress; ComponentStarter.INFECTION.sync(this.provider);} //ticks infection % up
 
     public int getInfectionTimer() {return infectionTimer; }
 
@@ -65,5 +74,15 @@ public class InfectionComponent implements ComponentV3 {
         tag.putInt("infectionTimer", infectionTimer);
         tag.putDouble("infectionResistance", resistance);
         tag.putBoolean("infectionFollower", follower);
+    }
+
+    @Override
+    public void writeSyncPacket(FriendlyByteBuf buf, ServerPlayer recipient) {
+        buf.writeInt(this.infectionProgress);
+    }
+
+    @Override
+    public void applySyncPacket(FriendlyByteBuf buf) {
+        this.infectionProgress = buf.readInt();
     }
 }

@@ -11,6 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class LivingEntityTickMixin {
     @Inject(at = @At("TAIL"), method = "tick()V")
     private void tick(CallbackInfo info) {
+        if(!((LivingEntity) (Object) this).level.isClientSide)
         ComponentTicker.tickEntity((LivingEntity) (Object) this);
     }
 }

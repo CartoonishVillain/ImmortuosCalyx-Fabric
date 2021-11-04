@@ -24,7 +24,6 @@ import static com.cartoonishvillain.immortuoscalyx.component.ComponentStarter.IN
 @Mixin(Player.class)
 public class AntiTrade {
 
-
     @Inject(at = @At("HEAD"), method = "interactOn", cancellable = true)
     private void interactOn(Entity entity, InteractionHand interactionHand, CallbackInfoReturnable<InteractionResult> cir){
         if(!entity.level.isClientSide()){

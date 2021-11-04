@@ -9,9 +9,11 @@
     "LivingEntityTickMixin",
     "MobAccessor",
     "OtherItemUsageMixin",
+    "RawFoodMixin",
     "SyringeUsageMixin"
   ],
   "client": [
+    "AntiChatMixin"
   ],
   "injectors": {
     "defaultRequire": 1
