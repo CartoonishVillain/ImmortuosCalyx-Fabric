@@ -1,6 +1,7 @@
 package com.cartoonishvillain.immortuoscalyx.mixin;
 
 import com.cartoonishvillain.immortuoscalyx.ImmortuosCalyx;
+import com.cartoonishvillain.immortuoscalyx.client.ClientImmortuosInitalizer;
 import com.cartoonishvillain.immortuoscalyx.component.InfectionComponent;
 import com.cartoonishvillain.immortuoscalyx.networking.ObfuscatedChatPacket;
 import com.cartoonishvillain.immortuoscalyx.networking.SoundPacket;
@@ -28,15 +29,15 @@ public class AntiChatMixin {
             String format = "<" + name + "> ";
             if (!(string.charAt(0) == '/')) {
 
-                if ((h.getInfectionProgress() >= ImmortuosCalyx.config.playerSymptomProgression.EFFECTCHAT && ImmortuosCalyx.config.playerToggles.INFECTEDCHATNOISE))
+                if ((h.getInfectionProgress() >= ClientImmortuosInitalizer.chatEffectMark && ClientImmortuosInitalizer.chatScreamingEnabled))
                     SoundPacket.encodeAndSend(new FriendlyByteBuf(Unpooled.buffer()));
 
-                if (h.getInfectionProgress() >= ImmortuosCalyx.config.playerSymptomProgression.EFFECTCHAT && ImmortuosCalyx.config.playerToggles.ANTICHAT && ImmortuosCalyx.config.otherDetails.FORMATTEDINFECTCHAT) {
+                if (h.getInfectionProgress() >= ClientImmortuosInitalizer.chatEffectMark && ClientImmortuosInitalizer.chatDisabledEnabled && ClientImmortuosInitalizer.chatScrambledEnabled) {
 //                playerList.broadcastMessage((new TextComponent(format + ChatFormatting.OBFUSCATED + component)), ChatType.CHAT, uUID);
                     ObfuscatedChatPacket.encodeAndSend(format, string, new FriendlyByteBuf(Unpooled.buffer()));
                     ci.cancel();
                 }
-                if (h.getInfectionProgress() >= ImmortuosCalyx.config.playerSymptomProgression.EFFECTCHAT && ImmortuosCalyx.config.playerToggles.ANTICHAT && !ImmortuosCalyx.config.otherDetails.FORMATTEDINFECTCHAT) {
+                if (h.getInfectionProgress() >= ClientImmortuosInitalizer.chatEffectMark && ClientImmortuosInitalizer.chatDisabledEnabled && !ClientImmortuosInitalizer.chatScrambledEnabled) {
                     ci.cancel();
                 }
                 ;//if the player's infection is @ or above 40%, they can no longer speak in text chat.

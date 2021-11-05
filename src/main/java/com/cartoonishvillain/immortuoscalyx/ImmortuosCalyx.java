@@ -2,6 +2,8 @@ package com.cartoonishvillain.immortuoscalyx;
 
 import com.cartoonishvillain.immortuoscalyx.commands.SetInfectionRateCommand;
 import com.cartoonishvillain.immortuoscalyx.config.ImmortuosConfig;
+import com.cartoonishvillain.immortuoscalyx.networking.ConfigPacket;
+import io.netty.buffer.Unpooled;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer;
 import net.fabricmc.api.EnvType;
@@ -9,14 +11,18 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.Registry;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.ChatType;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.network.ServerGamePacketListenerImpl;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -62,6 +68,20 @@ public class ImmortuosCalyx implements ModInitializer {
 		registerPackets();
 
 		initSpawns();
+
+
+		ServerPlayConnectionEvents.JOIN.register(JoinListener.getInstance());
+
+
+	}
+
+	public static class JoinListener implements ServerPlayConnectionEvents.Join{
+		private static final JoinListener INSTANCE = new JoinListener();
+		@Override
+		public void onPlayReady(ServerGamePacketListenerImpl handler, PacketSender sender, MinecraftServer server) {
+			ConfigPacket.send(handler.player, new FriendlyByteBuf(Unpooled.buffer()));
+		}
+		public static JoinListener getInstance() {return INSTANCE;}
 
 	}
 
