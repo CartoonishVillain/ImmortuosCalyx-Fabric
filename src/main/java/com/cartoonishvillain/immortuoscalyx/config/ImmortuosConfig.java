@@ -124,7 +124,7 @@ public class ImmortuosConfig implements ConfigData {
         @Comment("The spawn weight of infected villagers. Higher is more frequent")
         public int VILLAGER = 1;
         @Comment("The spawn weight of infected divers. Higher is more frequent")
-        public int DIVER = 5;
+        public int DIVER = 1;
         @Comment("The spawn weight of infected humans. Higher is more frequent")
         public int HUMAN = 5;
         @Comment("EXPERIMENTAL! MUST BE ALL CHARACTERS FROM [a-z0-9/._-] OR THE GAME WILL CRASH. List the dimension names that you want the following configs to interact with. (e.g. the_bumblezone:the_bumblezone,minecraft:overworld)")

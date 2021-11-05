@@ -9,6 +9,8 @@
     ]
   },
 
+  "accessWidener" : "immortuoscalyx.accesswidener",
+
   "name": "Immortuos Calyx",
   "description": "A new parasitic infection has spread across the world. Try not to get infected... Inspired by the Velonaceps Calyx from Barotrauma.",
   "authors": [

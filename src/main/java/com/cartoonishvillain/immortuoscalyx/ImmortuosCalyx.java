@@ -25,6 +25,8 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import static com.cartoonishvillain.immortuoscalyx.entities.Spawns.initSpawns;
+
 public class ImmortuosCalyx implements ModInitializer {
 	// This logger is used to write text to the console and the log file.
 	// It is considered best practice to use your mod id as the logger's name.
@@ -53,6 +55,8 @@ public class ImmortuosCalyx implements ModInitializer {
 		}));
 
 		registerPackets();
+
+		initSpawns();
 
 	}
 

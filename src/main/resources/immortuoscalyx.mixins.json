@@ -7,6 +7,7 @@
     "AntiTrade",
     "AttackInfectionMixin",
     "DamageSourceInvoker",
+    "FollowerSpawnMixin",
     "InfectionDeathMixin",
     "LivingEntityTickMixin",
     "MobAccessor",
