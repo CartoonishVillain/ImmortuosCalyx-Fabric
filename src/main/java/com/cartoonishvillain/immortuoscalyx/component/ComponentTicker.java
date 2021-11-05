@@ -3,6 +3,7 @@ package com.cartoonishvillain.immortuoscalyx.component;
 import com.cartoonishvillain.immortuoscalyx.ImmortuosCalyx;
 import com.cartoonishvillain.immortuoscalyx.Register;
 import com.cartoonishvillain.immortuoscalyx.damage.InfectionDamage;
+import com.cartoonishvillain.immortuoscalyx.entities.InfectedEntity;
 import com.cartoonishvillain.immortuoscalyx.entities.InfectedPlayerEntity;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -11,9 +12,11 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.animal.IronGolem;
+import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.npc.AbstractVillager;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
@@ -21,6 +24,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import static com.cartoonishvillain.immortuoscalyx.component.ComponentStarter.INFECTION;
@@ -32,8 +36,7 @@ public class ComponentTicker {
             resistanceDownTick(livingEntity);
             InfectionTicker(livingEntity);
             InfectionTickPotionEffects(livingEntity);
-
-
+            infectionByAir(livingEntity);
         }
     }
 
@@ -189,6 +192,38 @@ public class ComponentTicker {
                     world.addFreshEntity(infectedPlayerEntity);}
                 else if(entity instanceof AbstractVillager){Register.INFECTEDVILLAGER.spawn(serverWorld, new ItemStack(Items.AIR), null, entity.blockPosition(), MobSpawnType.TRIGGERED, true, false); }
                 else if(entity instanceof IronGolem){Register.INFECTEDIG.spawn(serverWorld, new ItemStack(Items.AIR), null, entity.blockPosition(), MobSpawnType.TRIGGERED, true, false);}
+            }
+        }
+    }
+
+    private static void infectionByAir(LivingEntity sourceEntity){
+        Random rand = new Random();
+
+        if ((!ImmortuosCalyx.DimensionExclusion.contains(sourceEntity.level.dimension().location()) || !ImmortuosCalyx.config.dimensionsAndSpawnDetails.HOSTILEAEROSOLINFECTIONINCLEANSE) && !sourceEntity.level.isClientSide()){
+            int AerosolRate = Integer.MAX_VALUE;
+            boolean common = false;
+
+            if(sourceEntity instanceof InfectedEntity) AerosolRate = ImmortuosCalyx.config.contagionConfig.INFECTEDAERIALRATE;
+            else if(sourceEntity instanceof Zombie) AerosolRate = ImmortuosCalyx.config.contagionConfig.ZOMBIEAERIALRATE;
+            else {common = true; AerosolRate = ImmortuosCalyx.config.contagionConfig.COMMONAERIALRATE;}
+
+            if(AerosolRate != Integer.MAX_VALUE && rand.nextInt(AerosolRate) == 2) {
+                ArrayList<Entity> entities = (ArrayList<Entity>) sourceEntity.level.getEntities(sourceEntity, sourceEntity.getBoundingBox().inflate(2), entity -> true);
+                ArrayList<LivingEntity> livingEntityList = new ArrayList<LivingEntity>();
+                for (Entity entity : entities) {
+                    if (entity instanceof LivingEntity) {
+                        livingEntityList.add((LivingEntity) entity);
+                    }
+                }
+                if (!common) {
+                    for (LivingEntity victim : livingEntityList) {
+                        InfectionHandler.bioInfect(victim, AerosolRate, 1);
+                    }
+                } else {
+                    for (LivingEntity victim : livingEntityList) {
+                        InfectionHandler.commonAerosol(victim, sourceEntity, 1);
+                    }
+                }
             }
         }
     }
