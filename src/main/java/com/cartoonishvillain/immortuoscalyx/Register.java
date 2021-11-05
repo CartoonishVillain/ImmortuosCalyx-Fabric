@@ -2,6 +2,8 @@ package com.cartoonishvillain.immortuoscalyx;
 
 import com.cartoonishvillain.immortuoscalyx.Items.BaseItems;
 import com.cartoonishvillain.immortuoscalyx.Items.ItemFunctionality;
+import com.cartoonishvillain.immortuoscalyx.blocks.InfectionScanner;
+import com.cartoonishvillain.immortuoscalyx.blocks.ScannerBlockItem;
 import com.cartoonishvillain.immortuoscalyx.entities.*;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
@@ -14,16 +16,20 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.SpawnEggItem;
+import net.minecraft.world.level.block.Block;
 
 import static com.cartoonishvillain.immortuoscalyx.ImmortuosCalyx.MOD_ID;
 
 public class Register {
 
-    public static final Item SYRINGE = new BaseItems(new Item.Properties().tab(CreativeModeTab.TAB_BREWING), ChatFormatting.GRAY + "Allows you to harvest biomaterials necessary to make medicines", "", "", "", ItemFunctionality.NONE);
-    public static final Item GENERALANTIPARASITIC = new BaseItems(new Item.Properties().tab(CreativeModeTab.TAB_BREWING), ChatFormatting.BLUE + "Strengthens Immune System to the Immortuos Calyx Parasite", ChatFormatting.BLUE + "Does not make you immune. May also kill early forms of infection", ChatFormatting.RED + "Will cause light organ damage", ChatFormatting.GRAY + "Obtained through syringe extraction from a slime", ItemFunctionality.ANTIBIOTIC);
-    public static final Item IMMORTUOSCALYXEGGS = new BaseItems(new Item.Properties().tab(CreativeModeTab.TAB_BREWING), ChatFormatting.RED + "Infects humans with the Immortuos Calyx Parasite,", ChatFormatting.GRAY + "Obtained through syringe extraction from fully converted entities", "", "", ItemFunctionality.EGGS);
-    public static final Item CALYXANIDE = new BaseItems(new Item.Properties().tab(CreativeModeTab.TAB_BREWING),ChatFormatting.BLUE + "Kills the Immortuos Calyx Parasite", ChatFormatting.BLUE + "May need multiple doses for later stage infections", ChatFormatting.RED + "May be lethal if the parasite is ingrained too heavily", "", ItemFunctionality.CALYXIDE);
-    public static final Item SCANNER = new BaseItems(new Item.Properties().tab(CreativeModeTab.TAB_BREWING).stacksTo(1), ChatFormatting.BLUE + "Gives you information about infection", ChatFormatting.BLUE + "levels in players, and yourself.",ChatFormatting.GRAY + "Shift right click to view your stats,", ChatFormatting.GRAY + "left click entities to view theirs.", ItemFunctionality.SCANNER);
+    public static final Item SYRINGE = new BaseItems(new Item.Properties().tab(ImmortuosCalyx.TAB), ChatFormatting.GRAY + "Allows you to harvest biomaterials necessary to make medicines", "", "", "", ItemFunctionality.NONE);
+    public static final Item GENERALANTIPARASITIC = new BaseItems(new Item.Properties().tab(ImmortuosCalyx.TAB), ChatFormatting.BLUE + "Strengthens Immune System to the Immortuos Calyx Parasite", ChatFormatting.BLUE + "Does not make you immune. May also kill early forms of infection", ChatFormatting.RED + "Will cause light organ damage", ChatFormatting.GRAY + "Obtained through syringe extraction from a slime", ItemFunctionality.ANTIBIOTIC);
+    public static final Item IMMORTUOSCALYXEGGS = new BaseItems(new Item.Properties().tab(ImmortuosCalyx.TAB), ChatFormatting.RED + "Infects humans with the Immortuos Calyx Parasite,", ChatFormatting.GRAY + "Obtained through syringe extraction from fully converted entities", "", "", ItemFunctionality.EGGS);
+    public static final Item CALYXANIDE = new BaseItems(new Item.Properties().tab(ImmortuosCalyx.TAB),ChatFormatting.BLUE + "Kills the Immortuos Calyx Parasite", ChatFormatting.BLUE + "May need multiple doses for later stage infections", ChatFormatting.RED + "May be lethal if the parasite is ingrained too heavily", "", ItemFunctionality.CALYXIDE);
+    public static final Item SCANNER = new BaseItems(new Item.Properties().tab(ImmortuosCalyx.TAB).stacksTo(1), ChatFormatting.BLUE + "Gives you information about infection", ChatFormatting.BLUE + "levels in players, and yourself.",ChatFormatting.GRAY + "Shift right click to view your stats,", ChatFormatting.GRAY + "left click entities to view theirs.", ItemFunctionality.SCANNER);
+
+    public static final Block INFECTIONSCANNER = new InfectionScanner();
 
 
     public static final EntityType<InfectedPlayerEntity>  INFECTEDPLAYER = Registry.register(Registry.ENTITY_TYPE, new ResourceLocation(MOD_ID, "infectedplayer"), FabricEntityTypeBuilder.create(MobCategory.MONSTER, InfectedPlayerEntity::new).dimensions(EntityDimensions.fixed(0.6f, 1.95f)).build());
@@ -32,6 +38,11 @@ public class Register {
     public static final EntityType<InfectedVillagerEntity>  INFECTEDVILLAGER = Registry.register(Registry.ENTITY_TYPE, new ResourceLocation(MOD_ID, "infectedvillager"), FabricEntityTypeBuilder.create(MobCategory.MONSTER, InfectedVillagerEntity::new).dimensions(EntityDimensions.fixed(0.6f, 1.95f)).build());
     public static final EntityType<InfectedIGEntity>  INFECTEDIG = Registry.register(Registry.ENTITY_TYPE, new ResourceLocation(MOD_ID, "infectedig"), FabricEntityTypeBuilder.create(MobCategory.MONSTER, InfectedIGEntity::new).dimensions(EntityDimensions.fixed(1.6f, 2.6f)).build());
 
+    public static final Item INFECTEDHUMANSPAWN = new SpawnEggItem(INFECTEDHUMAN, 2565927, 5065244, new Item.Properties().tab(ImmortuosCalyx.TAB));
+    public static final Item INFECTEDDIVERPAWN = new SpawnEggItem(INFECTEDDIVER, 2565927, 5065244, new Item.Properties().tab(ImmortuosCalyx.TAB));
+    public static final Item INFECTEDPLAYERSPAWN = new SpawnEggItem(INFECTEDPLAYER, 2565927, 5065244, new Item.Properties().tab(ImmortuosCalyx.TAB));
+    public static final Item INFECTEDIGSPAWN = new SpawnEggItem(INFECTEDIG, 2565927, 5065244, new Item.Properties().tab(ImmortuosCalyx.TAB));
+    public static final Item INFECTEDVILLAGERSPAWN = new SpawnEggItem(INFECTEDVILLAGER, 2565927, 5065244, new Item.Properties().tab(ImmortuosCalyx.TAB));
 
     public static final ResourceLocation human_ambient_id = new ResourceLocation(MOD_ID, "infected_idle");
     public static final ResourceLocation human_hurt_id = new ResourceLocation(MOD_ID, "infected_hurt");
@@ -61,6 +72,15 @@ public class Register {
         Registry.register(Registry.ITEM, new ResourceLocation(MOD_ID, "immortuoseggs"), IMMORTUOSCALYXEGGS);
         Registry.register(Registry.ITEM, new ResourceLocation(MOD_ID, "calyxanide"), CALYXANIDE);
         Registry.register(Registry.ITEM, new ResourceLocation(MOD_ID, "healthscanner"), SCANNER);
+
+        Registry.register(Registry.BLOCK, new ResourceLocation(MOD_ID, "infection_scanner"), INFECTIONSCANNER);
+        Registry.register(Registry.ITEM, new ResourceLocation(MOD_ID, "infection_scanner"), new ScannerBlockItem(INFECTIONSCANNER));
+
+        Registry.register(Registry.ITEM, new ResourceLocation(MOD_ID, "infhuman_spawn_egg"), INFECTEDHUMANSPAWN);
+        Registry.register(Registry.ITEM, new ResourceLocation(MOD_ID, "infdiver_spawn_egg"), INFECTEDDIVERPAWN);
+        Registry.register(Registry.ITEM, new ResourceLocation(MOD_ID, "infvillager_spawn_egg"), INFECTEDVILLAGERSPAWN);
+        Registry.register(Registry.ITEM, new ResourceLocation(MOD_ID, "infig_spawn_egg"), INFECTEDIGSPAWN);
+        Registry.register(Registry.ITEM, new ResourceLocation(MOD_ID, "infplayer_spawn_egg"), INFECTEDPLAYERSPAWN);
 
         Registry.register(Registry.SOUND_EVENT, human_ambient_id, HUMANAMBIENT);
         Registry.register(Registry.SOUND_EVENT, human_hurt_id, HUMANHURT);

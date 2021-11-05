@@ -123,7 +123,7 @@ public class ComponentTicker {
                     }
                 }
             }
-        } else if(entity instanceof IronGolem){
+        } else if(entity instanceof IronGolem && !(entity instanceof InfectedEntity)){
             if(h.getInfectionProgress() >= ImmortuosCalyx.config.entityToggles.IRONGOLEMSLOW){ entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 5, 1, false, false)); }
             if(h.getInfectionProgress() >= ImmortuosCalyx.config.entityToggles.IRONGOLEMWEAK){ entity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 5, 1, false, false)); }
             if(h.getInfectionProgress() >= ImmortuosCalyx.config.entityToggles.IRONGOLEMLETHAL){
