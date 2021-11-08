@@ -4,6 +4,7 @@ import com.cartoonishvillain.immortuoscalyx.component.InfectionComponent;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -41,9 +42,12 @@ public class InfectionScanner extends Block {
 
 
     private BlockState redstoneStrength(Entity infected, BlockState state) {
-        InfectionComponent h = INFECTION.get(infected);
-        boolean logic = h.getInfectionProgress() > 0;
-        return state.setValue(POWERED, logic);
+        if(infected instanceof LivingEntity) {
+            InfectionComponent h = INFECTION.get(infected);
+            boolean logic = h.getInfectionProgress() > 0;
+            return state.setValue(POWERED, logic);
+        }
+        return state.setValue(POWERED, state.getValue(POWERED));
     }
     @Override
     public int getSignal (BlockState state, BlockGetter blockAccess, BlockPos pos, Direction side) { return state.getValue(POWERED) ? 15 : 0; }
