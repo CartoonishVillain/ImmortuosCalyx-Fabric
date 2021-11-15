@@ -11,7 +11,7 @@ public class InternalOrganDamage extends DamageSource {
     }
 
     public static DamageSource causeInternalDamage(Entity entity){
-        return ((DamageSourceInvoker) new EntityDamageSource("internaldamage", entity)).invokeBypassArmor();
+        return ((DamageSourceInvoker) new EntityDamageSource("internaldamage", entity)).ImmortuosinvokeBypassArmor();
     }
 
 

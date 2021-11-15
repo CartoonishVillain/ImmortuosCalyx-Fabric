@@ -8,6 +8,6 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 public interface DamageSourceInvoker {
 
     @Invoker("bypassArmor")
-    public DamageSource invokeBypassArmor();
+    public DamageSource ImmortuosinvokeBypassArmor();
 
 }

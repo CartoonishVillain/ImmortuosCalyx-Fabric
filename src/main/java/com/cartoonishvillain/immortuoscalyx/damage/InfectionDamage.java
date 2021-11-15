@@ -11,7 +11,7 @@ public class InfectionDamage extends DamageSource {
     }
 
     public static DamageSource causeInfectionDamage(Entity entity){
-        return ((DamageSourceInvoker) new EntityDamageSource("infection", entity)).invokeBypassArmor();
+        return ((DamageSourceInvoker) new EntityDamageSource("infection", entity)).ImmortuosinvokeBypassArmor();
     }
 
 

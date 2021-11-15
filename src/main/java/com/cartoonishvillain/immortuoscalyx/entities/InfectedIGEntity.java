@@ -50,7 +50,7 @@ public class InfectedIGEntity extends IronGolem implements InfectedEntity {
         super.registerGoals();
         InfectedIGEntity entity = this;
         if(!entity.level.isClientSide()){
-            Set<WrappedGoal> prioritizedGoals = ((MobAccessor) this).gettargetSelector().getAvailableGoals();
+            Set<WrappedGoal> prioritizedGoals = ((MobAccessor) this).ImmortuosgettargetSelector().getAvailableGoals();
             ArrayList<Goal> toRemove = new ArrayList<>();
             if(prioritizedGoals != null) {
                 for (WrappedGoal prioritizedGoal : prioritizedGoals) {
