@@ -24,9 +24,6 @@ public class RawFoodMixin {
     @Inject(at = @At("HEAD"), method = "finishUsingItem")
     private void finishUsingItem(ItemStack itemStack, Level level, LivingEntity livingEntity, CallbackInfoReturnable<ItemStack> cir){
         InfectionHandler.bioInfectCheck(itemStack, level, livingEntity);
-        if(!level.isClientSide && livingEntity instanceof Player && itemStack.isEdible() && rawItem.contains(itemStack.getItem()) && (!ImmortuosCalyx.DimensionExclusion.contains(livingEntity.level.dimension().location()) || !ImmortuosCalyx.config.dimensionsAndSpawnDetails.RAWFOODINFECTIONINCLEANSE)){
-            InfectionHandler.bioInfect(livingEntity, ImmortuosCalyx.config.contagionConfig.RAWFOODINFECTIONVALUE, 1);
-        }
     }
 
 

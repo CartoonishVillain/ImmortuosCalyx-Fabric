@@ -21,7 +21,7 @@ public class Spawns {
             MobSpawnSettings.SpawnerData humanspawner = new MobSpawnSettings.SpawnerData(Register.INFECTEDHUMAN, ImmortuosCalyx.config.dimensionsAndSpawnDetails.HUMAN, 1, 1);
             MobSpawnSettings.SpawnerData diverspawner = new MobSpawnSettings.SpawnerData(Register.INFECTEDDIVER, ImmortuosCalyx.config.dimensionsAndSpawnDetails.DIVER, 1, 1);
             //Select biome types.
-            if(biome.getBiomeCategory() != Biome.BiomeCategory.NETHER && biome.getBiomeCategory() != Biome.BiomeCategory.THEEND && biome.getBiomeCategory() != Biome.BiomeCategory.OCEAN){
+            if(biome.getBiomeCategory() != Biome.BiomeCategory.NETHER && biome.getBiomeCategory() != Biome.BiomeCategory.THEEND && biome.getBiomeCategory() != Biome.BiomeCategory.OCEAN && biome.getBiomeCategory() != Biome.BiomeCategory.MUSHROOM){
                 //grab the list of spawn entries.
                 List<MobSpawnSettings.SpawnerData> spawnersList = biome.getMobSettings().spawners.get(MobCategory.MONSTER).unwrap();
                 //move it to a more mutable list
