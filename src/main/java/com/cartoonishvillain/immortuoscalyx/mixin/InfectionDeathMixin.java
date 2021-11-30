@@ -12,7 +12,7 @@ import static com.cartoonishvillain.immortuoscalyx.component.ComponentTicker.inf
 @Mixin(LivingEntity.class)
 public class InfectionDeathMixin {
     @Inject(at = @At("HEAD"), method = "die")
-    private void die(DamageSource damageSource, CallbackInfo ci){
+    private void ImmortuosMobdie(DamageSource damageSource, CallbackInfo ci){
         LivingEntity entity = ((LivingEntity) (Object) this);
         infectedEntityConverter(damageSource, entity);
     }

@@ -1,10 +1,8 @@
 package com.cartoonishvillain.immortuoscalyx.mixin;
 
 
-import com.cartoonishvillain.immortuoscalyx.ImmortuosCalyx;
 import com.cartoonishvillain.immortuoscalyx.component.InfectionHandler;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -22,7 +20,7 @@ public class RawFoodMixin {
     private static final ArrayList<Item> rawItem = new ArrayList<>(Arrays.asList(Items.BEEF, Items.RABBIT, Items.CHICKEN, Items.PORKCHOP, Items.MUTTON, Items.COD, Items.SALMON, Items.ROTTEN_FLESH));
 
     @Inject(at = @At("HEAD"), method = "finishUsingItem")
-    private void finishUsingItem(ItemStack itemStack, Level level, LivingEntity livingEntity, CallbackInfoReturnable<ItemStack> cir){
+    private void ImmortuosfinishUsingItem(ItemStack itemStack, Level level, LivingEntity livingEntity, CallbackInfoReturnable<ItemStack> cir){
         InfectionHandler.bioInfectCheck(itemStack, level, livingEntity);
     }
 

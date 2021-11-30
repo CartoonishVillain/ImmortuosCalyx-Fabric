@@ -2,16 +2,15 @@ package com.cartoonishvillain.immortuoscalyx.mixin;
 
 import com.cartoonishvillain.immortuoscalyx.component.ComponentTicker;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(LivingEntity.class)
-public class AttackInfectionMixin {
+@Mixin(Player.class)
+public class PlayerAttackInfectionMixin {
 
     @Inject(at = @At("HEAD"), method = "actuallyHurt")
     private void Immortuosattack(DamageSource damageSource, float f, CallbackInfo ci) {

@@ -15,7 +15,7 @@ import static com.cartoonishvillain.immortuoscalyx.component.ComponentStarter.IN
 @Mixin(ServerLevel.class)
 public class FollowerSpawnMixin {
     @Inject(at = @At("HEAD"), method = "addFreshEntity")
-    private void addFreshEntity(Entity entity, CallbackInfoReturnable<Boolean> cir){
+    private void ImmortuosaddFreshEntity(Entity entity, CallbackInfoReturnable<Boolean> cir){
         if(entity instanceof Villager && !((Villager) entity).isBaby()){
             InfectionComponent h = INFECTION.get(entity);
             if(entity.level.getRandom().nextInt(ImmortuosCalyx.config.entityToggles.VILLAGERFOLLOWERCHANCE) < 2){

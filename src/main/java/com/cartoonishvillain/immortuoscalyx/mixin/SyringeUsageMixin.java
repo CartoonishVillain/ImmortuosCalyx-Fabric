@@ -24,7 +24,7 @@ public class SyringeUsageMixin {
 
 
     @Inject(at = @At("TAIL"), method = "interactOn")
-    private void interactOn(Entity entity, InteractionHand interactionHand, CallbackInfoReturnable<InteractionResult> cir){
+    private void ImmortuosinteractOn(Entity entity, InteractionHand interactionHand, CallbackInfoReturnable<InteractionResult> cir){
         Player player = (Player) (Object) this;
         if(!entity.level.isClientSide() && player.getMainHandItem().getItem().equals(SYRINGE) && interactionHand.equals(InteractionHand.MAIN_HAND)){
             boolean extract = false;

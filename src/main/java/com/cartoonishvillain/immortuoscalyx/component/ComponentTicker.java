@@ -3,8 +3,7 @@ package com.cartoonishvillain.immortuoscalyx.component;
 import com.cartoonishvillain.immortuoscalyx.ImmortuosCalyx;
 import com.cartoonishvillain.immortuoscalyx.Register;
 import com.cartoonishvillain.immortuoscalyx.damage.InfectionDamage;
-import com.cartoonishvillain.immortuoscalyx.entities.InfectedEntity;
-import com.cartoonishvillain.immortuoscalyx.entities.InfectedPlayerEntity;
+import com.cartoonishvillain.immortuoscalyx.entities.*;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.TextComponent;
@@ -15,6 +14,7 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.animal.AbstractGolem;
 import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.npc.AbstractVillager;
@@ -74,13 +74,13 @@ public class ComponentTicker {
         if(entity instanceof Player){
             if(h.getInfectionProgress() >= ImmortuosCalyx.config.playerSymptomProgression.EFFECTSPEED){
                 BlockPos CurrentPosition = new BlockPos(entity.getX(), entity.getY(), entity.getZ());
-                float temperature = entity.level.getBiomeManager().getBiome(CurrentPosition).getTemperature(CurrentPosition);
+                float temperature = entity.level.getBiomeManager().getBiome(CurrentPosition).getBaseTemperature();
                 if(temperature > 0.9 && ImmortuosCalyx.config.playerToggles.HEATSLOW){entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 5, 0, true, false));}
                 else if(temperature < 0.275 && ImmortuosCalyx.config.playerToggles.COLDFAST){entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 5, 0, true, false));}
             }
             if(h.getInfectionProgress() >= ImmortuosCalyx.config.playerSymptomProgression.EFFECTSTRENGTH){
                 BlockPos CurrentPosition = new BlockPos(entity.getX(), entity.getY(), entity.getZ());
-                float temperature = entity.level.getBiomeManager().getBiome(CurrentPosition).getTemperature(CurrentPosition);
+                float temperature = entity.level.getBiomeManager().getBiome(CurrentPosition).getBaseTemperature();
                 if(temperature > 0.275 && ImmortuosCalyx.config.playerToggles.WARMWEAKNESS){entity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 5, 0, true, false));}
                 else if (temperature <= 0.275 && ImmortuosCalyx.config.playerToggles.COLDSTRENGTH) {entity.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 5, 0, true, false));}
             }
@@ -226,5 +226,19 @@ public class ComponentTicker {
                 }
             }
         }
+    }
+
+    public static void attackHelper(LivingEntity aggro, LivingEntity victim){
+        if(aggro instanceof Player && ValidPlayer((Player) aggro)){
+            if(victim instanceof Player) InfectionHandler.infectPlayerByPlayer((Player) aggro,(Player) victim, 1);
+            else InfectionHandler.infectEntityByPlayer((Player) aggro, victim, 1);
+        }
+        else if (aggro instanceof InfectedHumanEntity || aggro instanceof InfectedDiverEntity || aggro instanceof InfectedPlayerEntity) InfectionHandler.infectEntity(victim, 95, 1);
+        else if (aggro instanceof InfectedIGEntity) InfectionHandler.infectEntity(victim, 75, 1);
+        else if (aggro instanceof InfectedVillagerEntity){
+            if(victim instanceof Villager || victim instanceof AbstractGolem) InfectionHandler.infectEntity(victim, 100, 1);
+            else InfectionHandler.infectEntity(victim, 55, 1);
+        }
+        else if(!(aggro instanceof Player)) InfectionHandler.infectEntity(aggro, victim, 1);
     }
 }

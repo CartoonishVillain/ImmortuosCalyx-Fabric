@@ -12,6 +12,7 @@
     "LivingEntityTickMixin",
     "MobAccessor",
     "OtherItemUsageMixin",
+    "PlayerAttackInfectionMixin",
     "PlayerInfectionDeathMixin",
     "RawFoodMixin",
     "SyringeUsageMixin"

@@ -25,7 +25,7 @@ import static com.cartoonishvillain.immortuoscalyx.component.ComponentStarter.IN
 public class AntiTrade {
 
     @Inject(at = @At("HEAD"), method = "interactOn", cancellable = true)
-    private void interactOn(Entity entity, InteractionHand interactionHand, CallbackInfoReturnable<InteractionResult> cir){
+    private void ImmortuosTradeinteractOn(Entity entity, InteractionHand interactionHand, CallbackInfoReturnable<InteractionResult> cir){
         if(!entity.level.isClientSide()){
             if(entity instanceof Villager villager){
                 InfectionComponent h = INFECTION.get(villager);
