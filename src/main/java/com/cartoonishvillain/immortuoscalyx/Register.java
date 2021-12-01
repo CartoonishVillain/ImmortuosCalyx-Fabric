@@ -54,6 +54,8 @@ public class Register {
     public static final ResourceLocation vil_idle_id = new ResourceLocation(MOD_ID, "villagerinfected_idle");
     public static final ResourceLocation vil_hurt_id = new ResourceLocation(MOD_ID, "villagerinfected_hurt");
     public static final ResourceLocation vil_death_id = new ResourceLocation(MOD_ID, "villagerinfected_death");
+    public static final ResourceLocation scanclearid = new ResourceLocation(MOD_ID, "scan_clear");
+    public static final ResourceLocation scanbadid = new ResourceLocation(MOD_ID, "scan_bad");
 
     public static SoundEvent HUMANAMBIENT = new SoundEvent(human_ambient_id);
     public static SoundEvent HUMANHURT = new SoundEvent(human_hurt_id);
@@ -65,6 +67,8 @@ public class Register {
     public static SoundEvent VILIDLE = new SoundEvent(vil_idle_id);
     public static SoundEvent VILHURT = new SoundEvent(vil_hurt_id);
     public static SoundEvent VILDEATH = new SoundEvent(vil_death_id);
+    public static SoundEvent SCANCLEAR = new SoundEvent(scanclearid);
+    public static SoundEvent SCANBAD = new SoundEvent(scanbadid);
 
     public static void init(){
         Registry.register(Registry.ITEM, new ResourceLocation(MOD_ID, "syringe"), SYRINGE);
@@ -92,6 +96,8 @@ public class Register {
         Registry.register(Registry.SOUND_EVENT, vil_idle_id, VILIDLE);
         Registry.register(Registry.SOUND_EVENT, vil_hurt_id, VILHURT);
         Registry.register(Registry.SOUND_EVENT, vil_death_id, VILDEATH);
+        Registry.register(Registry.SOUND_EVENT, scanbadid, SCANBAD);
+        Registry.register(Registry.SOUND_EVENT, scanclearid, SCANCLEAR);
 
         FabricDefaultAttributeRegistry.register(INFECTEDPLAYER, InfectedPlayerEntity.customAttributes());
         FabricDefaultAttributeRegistry.register(INFECTEDHUMAN, InfectedHumanEntity.customAttributes());
