@@ -38,6 +38,10 @@ public class ImmortuosConfig implements ConfigData {
         public boolean HEATSLOW = true;
         @Comment("Do players get sped up in cold environments? (60% infection by default)")
         public boolean COLDFAST = true;
+        @Comment("Enables or disables water breathing for players at 67%")
+        public boolean WATERBREATHING = true;
+        @Comment("Enables or disables conduit power for players at 67%, in cold biomes, while also in the water.")
+        public boolean COLDCONDUITPOWER = true;
         @Comment("Are players weakened in all but the coldest environments? (80% infection by default)")
         public boolean WARMWEAKNESS = true;
         @Comment("Are players strengthend in cold environments? (80% infection by default)")
@@ -76,6 +80,8 @@ public class ImmortuosConfig implements ConfigData {
         public int PLAYERINFECTIONTHRESHOLD = 50;
         @Comment("Changes when the speed/slowdown side effects occurs")
         public int EFFECTSPEED = 60;
+        @Comment("Changes when the water breathing side effects occurs")
+        public int EFFECTWATERBREATH = 67;
         @Comment("Changes when the strength/weakness side effects occurs")
         public int EFFECTSTRENGTH = 85;
         @Comment("Changes when the blindness side effect will occur")
