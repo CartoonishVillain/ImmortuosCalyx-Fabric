@@ -10,12 +10,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import static com.cartoonishvillain.immortuoscalyx.component.ComponentTicker.infectedEntityConverter;
 
-@Mixin(ServerPlayer.class)
+@Mixin(value = ServerPlayer.class, priority = 9999999)
 public class PlayerInfectionDeathMixin {
     @Inject(at = @At("HEAD"), method = "die")
     private void Immortuosdie(DamageSource damageSource, CallbackInfo ci){
-        LivingEntity entity = ((LivingEntity) (Object) this);
-        infectedEntityConverter(damageSource, entity);
+        if(!ci.isCancelled()) {
+            LivingEntity entity = ((LivingEntity) (Object) this);
+            infectedEntityConverter(damageSource, entity);
+        }
     }
 
 }

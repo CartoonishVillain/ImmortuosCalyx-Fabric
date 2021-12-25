@@ -118,6 +118,8 @@ public class ImmortuosConfig implements ConfigData {
         public int INFECTIONTIMER = 450;
         @Comment("An alternative to blocking out chat entirely when infected. Will turn a player's chat to gibberish instead")
         public boolean FORMATTEDINFECTCHAT = false;
+        @Comment("Enables a chance for the infection to turn a victim into an infected variant regardless of the reason of death, outside of extreme cases such as explosions.")
+        public boolean INFECTIONDEATH = true;
     }
 
     public static class DimensionsAndSpawnDetails{

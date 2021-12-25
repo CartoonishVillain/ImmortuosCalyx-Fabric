@@ -25,6 +25,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import static com.cartoonishvillain.immortuoscalyx.component.ComponentStarter.INFECTION;
@@ -179,21 +180,37 @@ public class ComponentTicker {
                 afflictedPlayer.sendMessage(new TextComponent(ChatFormatting.RED + "You feel an overwhelming pain in your head..."), afflictedPlayer.getUUID());}
     }
 
-    public static void infectedEntityConverter(DamageSource damageSource, LivingEntity entity){
-        if (damageSource.msgId.equals("infection")){
+    private static final ArrayList<String> DISQUALIFYINGDAMAGE = new ArrayList<>(List.of("lightningBolt", "lava", "outOfWorld", "explosion"));
+    public static void infectedEntityConverter(DamageSource damageSource, LivingEntity entity) {
+        if (damageSource.msgId.equals("infection")) {
             Level world = entity.level;
-            if(!world.isClientSide()){
+            if (!world.isClientSide()) {
                 ServerLevel serverWorld = (ServerLevel) world;
-                if(entity instanceof Player){
-                    InfectedPlayerEntity infectedPlayerEntity = new InfectedPlayerEntity(Register.INFECTEDPLAYER, world);
-                    infectedPlayerEntity.setCustomName(entity.getName());
-                    infectedPlayerEntity.setPUUID(entity.getUUID());
-                    infectedPlayerEntity.setPos(entity.getX(), entity.getY() + 0.1, entity.getZ());
-                    world.addFreshEntity(infectedPlayerEntity);}
-                else if(entity instanceof AbstractVillager){Register.INFECTEDVILLAGER.spawn(serverWorld, new ItemStack(Items.AIR), null, entity.blockPosition(), MobSpawnType.TRIGGERED, true, false); }
-                else if(entity instanceof IronGolem){Register.INFECTEDIG.spawn(serverWorld, new ItemStack(Items.AIR), null, entity.blockPosition(), MobSpawnType.TRIGGERED, true, false);}
+                infectedEntitySummoner(entity, serverWorld);
+            }
+        } else if (!DISQUALIFYINGDAMAGE.contains(damageSource.msgId) && ImmortuosCalyx.config.otherDetails.INFECTIONDEATH) {
+            Level world = entity.getLevel();
+            if (!world.isClientSide() && !(entity instanceof Villager)) {
+                InfectionComponent h = INFECTION.get(entity);
+                    //Chance to be converted is multiplied by 2 for every % above 50.
+                    float chance = (h.getInfectionProgress() - 50) * 2;
+                    if (chance > world.getRandom().nextInt(100)) {
+                        ServerLevel serverWorld = (ServerLevel) world;
+                        infectedEntitySummoner(entity, serverWorld);
+                    }
             }
         }
+    }
+
+    private static void infectedEntitySummoner(LivingEntity entity, ServerLevel serverWorld){
+        if(entity instanceof Player){
+            InfectedPlayerEntity infectedPlayerEntity = new InfectedPlayerEntity(Register.INFECTEDPLAYER, serverWorld);
+            infectedPlayerEntity.setCustomName(entity.getName());
+            infectedPlayerEntity.setPUUID(entity.getUUID());
+            infectedPlayerEntity.setPos(entity.getX(), entity.getY() + 0.1, entity.getZ());
+            serverWorld.addFreshEntity(infectedPlayerEntity);}
+        else if(entity instanceof AbstractVillager){Register.INFECTEDVILLAGER.spawn(serverWorld, new ItemStack(Items.AIR), null, entity.blockPosition(), MobSpawnType.TRIGGERED, true, false); }
+        else if(entity instanceof IronGolem){Register.INFECTEDIG.spawn(serverWorld, new ItemStack(Items.AIR), null, entity.blockPosition(), MobSpawnType.TRIGGERED, true, false);}
     }
 
     private static void infectionByAir(LivingEntity sourceEntity){
