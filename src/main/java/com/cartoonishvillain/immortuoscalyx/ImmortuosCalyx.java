@@ -27,6 +27,7 @@ import net.minecraft.server.network.ServerGamePacketListenerImpl;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.SpawnPlacements;
+import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -77,8 +78,8 @@ public class ImmortuosCalyx implements ModInitializer {
 		ServerPlayConnectionEvents.JOIN.register(JoinListener.getInstance());
 
 		SpawnRestrictionAccessor.callRegister(Register.INFECTEDDIVER, SpawnPlacements.Type.IN_WATER, Heightmap.Types.OCEAN_FLOOR, Mob::checkMobSpawnRules);
-		SpawnRestrictionAccessor.callRegister(Register.INFECTEDHUMAN, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mob::checkMobSpawnRules);
-		SpawnRestrictionAccessor.callRegister(Register.INFECTEDVILLAGER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mob::checkMobSpawnRules);
+		SpawnRestrictionAccessor.callRegister(Register.INFECTEDHUMAN, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules);
+		SpawnRestrictionAccessor.callRegister(Register.INFECTEDVILLAGER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules);
 
 	}
 
