@@ -62,6 +62,8 @@ public class ComponentTicker {
                 h.addInfectionTimer(1);
                 int timer = ImmortuosCalyx.config.otherDetails.INFECTIONTIMER;
                 if(h.getInfectionTimer() >= timer){
+                    if(h.isResistant() && h.getInfectionProgress() == ImmortuosCalyx.config.playerSymptomProgression.EFFECTIMPEDEMENT) {return;}
+                    if(h.isResistant() && h.getInfectionProgress() > ImmortuosCalyx.config.playerSymptomProgression.EFFECTIMPEDEMENT) {h.setInfectionProgress(ImmortuosCalyx.config.playerSymptomProgression.EFFECTIMPEDEMENT); return;}
                     h.addInfectionProgress(1);
                     h.addInfectionTimer(-timer);
                     if(entity instanceof Player) {PlayerMessageSender((Player) entity);}

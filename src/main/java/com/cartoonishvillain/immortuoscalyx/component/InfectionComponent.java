@@ -13,6 +13,7 @@ public class InfectionComponent implements ComponentV3, AutoSyncedComponent {
     protected int infectionTimer = 0;
     protected double resistance = 1;
     protected boolean follower = false;
+    protected boolean resistantDosage = false;
 
     public InfectionComponent(Object provider){
         this.provider = provider;
@@ -60,12 +61,21 @@ public class InfectionComponent implements ComponentV3, AutoSyncedComponent {
         return follower;
     }
 
+    public boolean isResistant() {
+        return resistantDosage;
+    }
+
+    public void setResistant(boolean isResistant) {
+        resistantDosage = isResistant;
+    }
+
     @Override
     public void readFromNbt(CompoundTag nbt) {
         infectionProgress = nbt.getInt("infectionProgression");
         infectionTimer = nbt.getInt("infectionTimer");
         resistance = nbt.getFloat("infectionResistance");
         follower = nbt.getBoolean("infectionFollower");
+        resistantDosage = nbt.getBoolean("infectionImpedement");
     }
 
     @Override
@@ -74,6 +84,7 @@ public class InfectionComponent implements ComponentV3, AutoSyncedComponent {
         tag.putInt("infectionTimer", infectionTimer);
         tag.putDouble("infectionResistance", resistance);
         tag.putBoolean("infectionFollower", follower);
+        tag.putBoolean("infectionImpedement", resistantDosage);
     }
 
     @Override

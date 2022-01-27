@@ -33,6 +33,12 @@ public class ItemUsages {
         target.level.playSound(null, target.getX(), target.getY(), target.getZ(), INJECT, SoundSource.PLAYERS, 1, 1);
     }
 
+    public static void useStabilize(ItemStack stack, LivingEntity target){
+        stack.shrink(1);
+        AddResistance(target);
+        target.level.playSound(null, target.getX(), target.getY(), target.getZ(), INJECT, SoundSource.PLAYERS, 1, 1);
+    }
+
     public static void useScanner(LivingEntity target, LivingEntity user) {
         if (user instanceof Player) {
             if (target.equals(user)) {
@@ -40,6 +46,10 @@ public class ItemUsages {
             } else scan((Player) user, target);
         }
     }
+
+
+
+
 
     private static void scan(Player a, LivingEntity t){
         if(t instanceof Player){
@@ -91,6 +101,11 @@ public class ItemUsages {
 
             h.addInfectionProgress(-40);
             if(h.getInfectionProgress() < 0) h.setInfectionProgress(0);
+    }
+
+    private static void AddResistance(Entity target){
+        InfectionComponent h = INFECTION.get(target);
+            h.setResistant(true);
     }
 
     private static void ImmortuosEggsInfection(LivingEntity target){

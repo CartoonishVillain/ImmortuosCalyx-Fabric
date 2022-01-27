@@ -28,7 +28,6 @@ public class BaseItems extends Item{
 
     }
 
-
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
         if(player.isCrouching() && !itemFunctionality.equals(ItemFunctionality.NONE) && interactionHand.equals(InteractionHand.MAIN_HAND) && !level.isClientSide && player.getMainHandItem().getItem() instanceof BaseItems){
@@ -40,6 +39,8 @@ public class BaseItems extends Item{
                 ItemUsages.useImmortuosCalyxEggs(player.getMainHandItem(), player);
             } else if(((BaseItems) player.getMainHandItem().getItem()).getItemFunctionality().equals(ItemFunctionality.SCANNER)){
                 ItemUsages.useScanner(player, player);
+            } else if(((BaseItems) player.getMainHandItem().getItem()).getItemFunctionality().equals(ItemFunctionality.STABILIZE)){
+                ItemUsages.useStabilize(player.getMainHandItem(), player);
             }
         }
         return super.use(level, player, interactionHand);

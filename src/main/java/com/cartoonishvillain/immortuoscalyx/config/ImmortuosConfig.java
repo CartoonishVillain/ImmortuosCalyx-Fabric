@@ -88,6 +88,8 @@ public class ImmortuosConfig implements ConfigData {
         public int EFFECTBLIND = 95;
         @Comment("Changes when players will start being damaged by the parasite")
         public int EFFECTDAMAGE = 100;
+        @Comment("Changes when players will stop gaining infection when injected with a stablized sample.")
+        public int EFFECTIMPEDEMENT = 89;
     }
 
     public static class EntityToggles{
