@@ -23,14 +23,15 @@ import static com.cartoonishvillain.immortuoscalyx.ImmortuosCalyx.MOD_ID;
 
 public class Register {
 
-    public static final Item SYRINGE = new BaseItems(new Item.Properties().tab(ImmortuosCalyx.TAB), ChatFormatting.GRAY + "Allows you to harvest biomaterials necessary to make medicines", "", "", "", ItemFunctionality.NONE);
-    public static final Item GENERALANTIPARASITIC = new BaseItems(new Item.Properties().tab(ImmortuosCalyx.TAB), ChatFormatting.BLUE + "Strengthens Immune System to the Immortuos Calyx Parasite", ChatFormatting.BLUE + "Does not make you immune. May also kill early forms of infection", ChatFormatting.RED + "Will cause light organ damage", ChatFormatting.GRAY + "Obtained through syringe extraction from a slime, or crafting.", ItemFunctionality.ANTIBIOTIC);
-    public static final Item IMMORTUOSCALYXEGGS = new BaseItems(new Item.Properties().tab(ImmortuosCalyx.TAB), ChatFormatting.RED + "Infects humans with the Immortuos Calyx Parasite,", ChatFormatting.GRAY + "Obtained through syringe extraction from fully converted entities", "", "", ItemFunctionality.EGGS);
-    public static final Item CALYXANIDE = new BaseItems(new Item.Properties().tab(ImmortuosCalyx.TAB),ChatFormatting.BLUE + "Kills the Immortuos Calyx Parasite", ChatFormatting.BLUE + "May need multiple doses for later stage infections", ChatFormatting.RED + "May be lethal if the parasite is ingrained too heavily", "", ItemFunctionality.CALYXIDE);
-    public static final Item SCANNER = new BaseItems(new Item.Properties().tab(ImmortuosCalyx.TAB).stacksTo(1), ChatFormatting.BLUE + "Gives you information about infection", ChatFormatting.BLUE + "levels in players, and yourself.",ChatFormatting.GRAY + "Shift right click to view your stats,", ChatFormatting.GRAY + "left click entities to view theirs.", ItemFunctionality.SCANNER);
+    public static final Item SYRINGE = new BaseItems(new Item.Properties().tab(ImmortuosCalyx.TAB), ItemFunctionality.NONE, ChatFormatting.GRAY + "Allows you to harvest biomaterials necessary to make medicines");
+    public static final Item GENERALANTIPARASITIC = new BaseItems(new Item.Properties().tab(ImmortuosCalyx.TAB), ItemFunctionality.ANTIBIOTIC, ChatFormatting.BLUE + "Strengthens Immune System to the Immortuos Calyx Parasite", ChatFormatting.BLUE + "Does not make you immune. May also kill early forms of infection", ChatFormatting.RED + "Will cause light organ damage", ChatFormatting.GRAY + "Obtained through syringe extraction from a slime, or crafting.");
+    public static final Item IMMORTUOSCALYXEGGS = new BaseItems(new Item.Properties().tab(ImmortuosCalyx.TAB), ItemFunctionality.EGGS,ChatFormatting.RED + "Infects humans with the Immortuos Calyx Parasite,", ChatFormatting.GRAY + "Obtained through syringe extraction from fully converted entities");
+    public static final Item CALYXANIDE = new BaseItems(new Item.Properties().tab(ImmortuosCalyx.TAB), ItemFunctionality.CALYXIDE, ChatFormatting.BLUE + "Kills the Immortuos Calyx Parasite", ChatFormatting.BLUE + "May need multiple doses for later stage infections", ChatFormatting.RED + "May be lethal if the parasite is ingrained too heavily");
+    public static final Item SCANNER = new BaseItems(new Item.Properties().tab(ImmortuosCalyx.TAB).stacksTo(1), ItemFunctionality.SCANNER, ChatFormatting.BLUE + "Gives you information about infection", ChatFormatting.BLUE + "levels in players, and yourself.",ChatFormatting.GRAY + "Shift right click to view your stats,", ChatFormatting.GRAY + "left click entities to view theirs.");
+    public static final Item UNSTABLESTRAND  = new BaseItems(new Item.Properties().tab(ImmortuosCalyx.TAB), ItemFunctionality.NONE,ChatFormatting.BLUE + "Rare drop from heavily infected individuals", ChatFormatting.BLUE + "Can be refined into a more stable state");
+    public static final Item STABLIZEDSTRAND  = new BaseItems(new Item.Properties().tab(ImmortuosCalyx.TAB), ItemFunctionality.STABILIZE,ChatFormatting.BLUE + "Can be injected into a player to impede", ChatFormatting.BLUE + "infection progress, allowing you to keep effects", ChatFormatting.BLUE + "without being fully converted.");
 
     public static final Block INFECTIONSCANNER = new InfectionScanner();
-
 
     public static final EntityType<InfectedPlayerEntity>  INFECTEDPLAYER = Registry.register(Registry.ENTITY_TYPE, new ResourceLocation(MOD_ID, "infectedplayer"), FabricEntityTypeBuilder.create(MobCategory.MONSTER, InfectedPlayerEntity::new).dimensions(EntityDimensions.fixed(0.6f, 1.95f)).build());
     public static final EntityType<InfectedHumanEntity>  INFECTEDHUMAN = Registry.register(Registry.ENTITY_TYPE, new ResourceLocation(MOD_ID, "infectedhuman"), FabricEntityTypeBuilder.create(MobCategory.MONSTER, InfectedHumanEntity::new).dimensions(EntityDimensions.fixed(0.6f, 1.95f)).build());
@@ -76,6 +77,8 @@ public class Register {
         Registry.register(Registry.ITEM, new ResourceLocation(MOD_ID, "immortuoseggs"), IMMORTUOSCALYXEGGS);
         Registry.register(Registry.ITEM, new ResourceLocation(MOD_ID, "calyxanide"), CALYXANIDE);
         Registry.register(Registry.ITEM, new ResourceLocation(MOD_ID, "healthscanner"), SCANNER);
+        Registry.register(Registry.ITEM, new ResourceLocation(MOD_ID, "unstablestrand"), UNSTABLESTRAND);
+        Registry.register(Registry.ITEM, new ResourceLocation(MOD_ID, "stablizedstrand"), STABLIZEDSTRAND);
 
         Registry.register(Registry.BLOCK, new ResourceLocation(MOD_ID, "infection_scanner"), INFECTIONSCANNER);
         Registry.register(Registry.ITEM, new ResourceLocation(MOD_ID, "infection_scanner"), new ScannerBlockItem(INFECTIONSCANNER));

@@ -5,5 +5,6 @@ public enum ItemFunctionality {
     ANTIBIOTIC,
     EGGS,
     SCANNER,
+    STABILIZE,
     NONE
 }

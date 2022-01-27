@@ -14,20 +14,16 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BaseItems extends Item{
-    String lore1;
-    String lore2;
-    String lore3;
-    String lore4;
+
+    ArrayList<String> listOfLore;
     ItemFunctionality itemFunctionality;
-    public BaseItems(Properties properties, String lore1, String lore2, String lore3, String lore4, ItemFunctionality itemFunctionality) {
+    public BaseItems(Item.Properties properties, ItemFunctionality itemFunctionality, String... lore) {
         super(properties);
-        this.lore1 = lore1;
-        this.lore2 = lore2;
-        this.lore3 = lore3;
-        this.lore4 = lore4;
+        listOfLore.addAll(List.of(lore));
         this.itemFunctionality = itemFunctionality;
 
     }
@@ -51,17 +47,8 @@ public class BaseItems extends Item{
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
-        if(lore1 != ""){
-            tooltip.add(new TextComponent(lore1));
-            if(lore2 != ""){
-                tooltip.add(new TextComponent(lore2));
-                if(lore3 != ""){
-                    tooltip.add(new TextComponent(lore3));
-                    if(lore4 != ""){
-                        tooltip.add(new TextComponent(lore4));
-                    }
-                }
-            }
+        for(String loreItem : listOfLore) {
+            tooltip.add(new TextComponent(loreItem));
         }
     }
 
