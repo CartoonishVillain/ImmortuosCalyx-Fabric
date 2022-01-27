@@ -59,6 +59,7 @@ public class ItemUsages {
             a.sendMessage(new TextComponent("Food: " + ((Player) t).getFoodData().getFoodLevel()), a.getUUID());
             a.sendMessage(new TextComponent("Infection Level: " + h.getInfectionProgress() + "%"), a.getUUID());
             a.sendMessage(new TextComponent("Resistance Multiplier: " + h.getResistance()), a.getUUID());
+            a.sendMessage(new TextComponent("Stabilized: " + h.isResistant()), a.getUUID());
         } else if(t instanceof InfectedEntity){
             a.sendMessage(new TextComponent("===(Target completely infected)==="), a.getUUID());
         } else {
@@ -66,6 +67,7 @@ public class ItemUsages {
                 a.sendMessage(new TextComponent("===(" + t.getName().getString() + "'s stats)==="), a.getUUID());
                 a.sendMessage(new TextComponent("Health: " + t.getHealth()), a.getUUID());
                 a.sendMessage(new TextComponent("Infection Rate: " + h.getInfectionProgress() + "%"), a.getUUID());
+                a.sendMessage(new TextComponent("Stabilized: " + h.isResistant()), a.getUUID());
                 if(a.isCreative() && t instanceof Villager){
                     a.sendMessage(new TextComponent("Immortuos Follower: " + h.isFollower()), a.getUUID());
                 }
@@ -78,6 +80,7 @@ public class ItemUsages {
             p.sendMessage(new TextComponent("Saturation level: " + p.getFoodData().getSaturationLevel()), p.getUUID());
             p.sendMessage(new TextComponent("Infection Level: " + h.getInfectionProgress() + "%"), p.getUUID());
             p.sendMessage(new TextComponent("Resistance Multiplier: " + h.getResistance()), p.getUUID());
+            p.sendMessage(new TextComponent("Stabilized: " + h.isResistant()), p.getUUID());
     }
 
     private static void AntiParasiticCure(LivingEntity target) {

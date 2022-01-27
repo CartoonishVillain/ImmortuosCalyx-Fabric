@@ -78,7 +78,7 @@ public class Register {
         Registry.register(Registry.ITEM, new ResourceLocation(MOD_ID, "calyxanide"), CALYXANIDE);
         Registry.register(Registry.ITEM, new ResourceLocation(MOD_ID, "healthscanner"), SCANNER);
         Registry.register(Registry.ITEM, new ResourceLocation(MOD_ID, "unstablestrand"), UNSTABLESTRAND);
-        Registry.register(Registry.ITEM, new ResourceLocation(MOD_ID, "stablizedstrand.json"), STABLIZEDSTRAND);
+        Registry.register(Registry.ITEM, new ResourceLocation(MOD_ID, "stablizedstrand"), STABLIZEDSTRAND);
 
         Registry.register(Registry.BLOCK, new ResourceLocation(MOD_ID, "infection_scanner"), INFECTIONSCANNER);
         Registry.register(Registry.ITEM, new ResourceLocation(MOD_ID, "infection_scanner"), new ScannerBlockItem(INFECTIONSCANNER));

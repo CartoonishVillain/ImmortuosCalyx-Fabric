@@ -31,6 +31,9 @@ public class OtherItemUsageMixin {
             } else if(((BaseItems) player.getMainHandItem().getItem()).getItemFunctionality().equals(ItemFunctionality.SCANNER)){
                 ItemUsages.useScanner((LivingEntity) entity, player);
                 ci.cancel();
+            } else if(((BaseItems) player.getMainHandItem().getItem()).getItemFunctionality().equals(ItemFunctionality.STABILIZE)){
+                ItemUsages.useStabilize(player.getMainHandItem(), (LivingEntity) entity);
+                ci.cancel();
             }
         }
     }

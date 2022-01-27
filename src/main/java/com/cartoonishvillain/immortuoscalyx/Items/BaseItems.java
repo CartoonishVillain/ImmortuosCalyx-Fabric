@@ -23,6 +23,7 @@ public class BaseItems extends Item{
     ItemFunctionality itemFunctionality;
     public BaseItems(Item.Properties properties, ItemFunctionality itemFunctionality, String... lore) {
         super(properties);
+        listOfLore = new ArrayList<>();
         listOfLore.addAll(List.of(lore));
         this.itemFunctionality = itemFunctionality;
 
