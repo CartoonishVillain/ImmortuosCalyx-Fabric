@@ -12,8 +12,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.ai.goal.WrappedGoal;
+import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.AbstractGolem;
 import net.minecraft.world.entity.animal.IronGolem;
@@ -47,26 +46,15 @@ public class InfectedIGEntity extends IronGolem implements InfectedEntity {
 
     @Override
     protected void registerGoals() {
-        super.registerGoals();
-        InfectedIGEntity entity = this;
-        if(!entity.level.isClientSide()){
-            Set<WrappedGoal> prioritizedGoals = ((MobAccessor) this).ImmortuosgettargetSelector().getAvailableGoals();
-            ArrayList<Goal> toRemove = new ArrayList<>();
-            if(prioritizedGoals != null) {
-                for (WrappedGoal prioritizedGoal : prioritizedGoals) {
-                    toRemove.add(prioritizedGoal.getGoal());
-                }
-            }
-            for(Goal goal : toRemove){
-                entity.targetSelector.removeGoal(goal);
-            }
-            entity.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(entity, Pillager.class, 16, true, false,  entity::shouldAttack));
-            entity.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(entity, Monster.class, 16, true, false,  entity::shouldAttackMonster));
-            entity.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(entity, AbstractVillager.class, 16, true, false,  entity::shouldAttack));
-            entity.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(entity, Player.class, 16, true, false,  entity::shouldAttack));
-            entity.targetSelector.addGoal(5, new NearestAttackableTargetGoal<>(entity, AbstractGolem.class, 16, true, false,  entity::shouldAttackMonster));
-
-        }
+        this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.0D, true));
+        this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 6.0F));
+        this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, 1.0D));
+        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Pillager.class, 16, true, false,  this::shouldAttack));
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Monster.class, 16, true, false,  this::shouldAttackMonster));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, AbstractVillager.class, 16, true, false,  this::shouldAttack));
+        this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, Player.class, 16, true, false,  this::shouldAttack));
+        this.targetSelector.addGoal(5, new NearestAttackableTargetGoal<>(this, AbstractGolem.class, 16, true, false,  this::shouldAttackMonster));
     }
 
     public boolean shouldAttack(@Nullable LivingEntity entity) {

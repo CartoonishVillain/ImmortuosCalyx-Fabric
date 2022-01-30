@@ -61,6 +61,8 @@ public class ImmortuosConfig implements ConfigData {
         public int ZOMBIEINFECTIONVALUE = 20;
         @Comment("Infection rate of eating raw food")
         public int RAWFOODINFECTIONVALUE = 10;
+        @Comment("Enables aerosolized infections, which allow zombies, heavily infected entities, and other entities that are infected to occasionally infect randomly, configurable by the other \"AERIALRATE\" configs in this group.")
+        public boolean AEROSOLIZEDINFECTION = false;
         @Comment("Higher numbers reduces aerosol infection attempts from custom infected entities")
         public int INFECTEDAERIALRATE = 5000;
         @Comment("Higher numbers reduces aerosol infection attempts from zombies, and zombie-like mobs")

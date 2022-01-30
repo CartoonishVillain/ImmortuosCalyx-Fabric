@@ -231,7 +231,7 @@ public class ComponentTicker {
     private static void infectionByAir(LivingEntity sourceEntity){
         Random rand = new Random();
 
-        if ((!ImmortuosCalyx.DimensionExclusion.contains(sourceEntity.level.dimension().location()) || !ImmortuosCalyx.config.dimensionsAndSpawnDetails.HOSTILEAEROSOLINFECTIONINCLEANSE) && !sourceEntity.level.isClientSide()){
+        if (ImmortuosCalyx.config.contagionConfig.AEROSOLIZEDINFECTION && (!ImmortuosCalyx.DimensionExclusion.contains(sourceEntity.level.dimension().location()) || !ImmortuosCalyx.config.dimensionsAndSpawnDetails.HOSTILEAEROSOLINFECTIONINCLEANSE) && !sourceEntity.level.isClientSide()){
             int AerosolRate = Integer.MAX_VALUE;
             boolean common = false;
 
