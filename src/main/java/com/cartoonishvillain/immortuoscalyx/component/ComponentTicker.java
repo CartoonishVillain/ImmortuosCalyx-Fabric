@@ -196,6 +196,7 @@ public class ComponentTicker {
     }
 
     private static final ArrayList<String> DISQUALIFYINGDAMAGE = new ArrayList<>(List.of("lightningBolt", "lava", "outOfWorld", "explosion"));
+
     public static void infectedEntityConverter(DamageSource damageSource, LivingEntity entity) {
         if (damageSource.msgId.equals("infection")) {
             Level world = entity.level;
@@ -205,7 +206,7 @@ public class ComponentTicker {
             }
         } else if (!DISQUALIFYINGDAMAGE.contains(damageSource.msgId) && ImmortuosCalyx.config.otherDetails.INFECTIONDEATH) {
             Level world = entity.getLevel();
-            if (!world.isClientSide() && !(entity instanceof Villager)) {
+            if (!world.isClientSide() && !(entity instanceof Villager) && !(entity instanceof InfectedEntity)) {
                 InfectionComponent h = INFECTION.get(entity);
                     //Chance to be converted is multiplied by 2 for every % above 50.
                     float chance = (h.getInfectionProgress() - 50) * 2;
